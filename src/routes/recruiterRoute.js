@@ -1,6 +1,6 @@
 const express = require("express");
-const seekerRouter = express.Router();
-const {validateUserRegistration} = require("../middlewares/validateUserRegistration.js")
+const recruiterRouter = express.Router();
+const {validateUserRegistrationForRecruiter} = require("../middlewares/validateUserRegistration.js")
 const UserModel = require("../model/userModel.js");
 const {generateHashPassword} = require("../middlewares/hashPassword.js");
 const bcrypt = require("bcrypt");
@@ -10,29 +10,33 @@ const {auth} = require("../middlewares/auth.js");
 
 
 
-
-
-
-
-
-seekerRouter.get("/user/loginForm", (req,res)=>{
-    res.send("login form!!!")
+recruiterRouter.get("/user/recruiter", (req,res)=>{
+    res.send("recruiter login form!!!");
 })
 
 
-
-
-//registration
-seekerRouter.post("/user/submitRegistrationForm",validateUserRegistration, async (req,res)=>{
+recruiterRouter.post("/user/submitRegistrationForm/recruiter",validateUserRegistrationForRecruiter, async (req,res)=>{
     try{
         const{firstName,lastName,email,phoneNumber,password,gender,profileUrl,resumeLink,type,skills,expYears,company} = req.body;
         console.log(req.body);
         const hashedPassword = await generateHashPassword(password);
         console.log(hashedPassword);
-        const userData = {firstName,lastName,email,phoneNumber,password : hashedPassword,gender,profileUrl,resumeLink,type : "seeker",skills,expYears,company};
+        const userData = {firstName,
+            lastName,
+            email,
+            phoneNumber,
+            password : hashedPassword,
+            gender,
+            profileUrl,
+            resumeLink : "https://m.media-amazon.com/images/I/71GLMJ7TQiL._SX679_.jpg",
+            type:"recruiter",
+            skills : ["html", "css", "js", "node"],
+            expYears : 1,
+            company : "xRec"
+        };
         const newUser = new UserModel(userData);
         await newUser.save();
-        res.status(200).send("validation");
+        res.status(200).send("recruiter validation");
     }catch(err){
         console.log(err.message);
         res.status(401).send(err.message);
@@ -40,11 +44,7 @@ seekerRouter.post("/user/submitRegistrationForm",validateUserRegistration, async
 })
 
 
-
-
-
-//login
-seekerRouter.post("/user/login/seeker", async (req,res)=>{
+recruiterRouter.post("/user/login/recruiter", async (req,res)=>{
     try{
         const{email,password: userPassword} = req.body;
         // console.log(email,password);
@@ -52,7 +52,7 @@ seekerRouter.post("/user/login/seeker", async (req,res)=>{
         // console.log(foundUser.firstName);
     if(foundUser){   
         const isValidated = await bcrypt.compare(userPassword, foundUser.password);
-        if(isValidated){
+        if(isValidated && foundUser.type === "recruiter"){
             req.session.userId = foundUser._id;
             res.cookie("recruiterId", foundUser._id);
             return res.send("loggedin" + foundUser);
@@ -69,11 +69,7 @@ seekerRouter.post("/user/login/seeker", async (req,res)=>{
     }
 });
 
-
-
-
-//logout
-seekerRouter.get("/user/logout/seeker", (req,res)=>{
+recruiterRouter.get("/user/logout/recruiter", (req,res)=>{
     try{
         req.session.destroy((err)=>{
             if(err){
@@ -88,11 +84,4 @@ seekerRouter.get("/user/logout/seeker", (req,res)=>{
 })
 
 
-
-//auth checking
-seekerRouter.get("/check", auth, (req,res)=>{
-    res.send("user is auth");
-})
-
-
-module.exports = seekerRouter;
+module.exports = recruiterRouter;
