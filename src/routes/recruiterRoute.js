@@ -6,7 +6,9 @@ const {generateHashPassword} = require("../middlewares/hashPassword.js");
 const bcrypt = require("bcrypt");
 const session = require("express-session");
 const {auth} = require("../middlewares/auth.js");
-
+const JobModel = require("../model/jobModel.js");
+const recruiterCheck = require("../middlewares/recruiterCheck.js");
+const ownerCheck = require("../middlewares/ownerCheck.js");
 
 
 
@@ -75,6 +77,9 @@ recruiterRouter.get("/user/logout/recruiter", (req,res)=>{
             if(err){
                 throw new Error("Log out could not be completed at this moment");
             }else{
+                res.cookie("recruiterId", null);
+                res.clearCookie('connect.sid');
+                res.clearCookie('recruiterId');
                 res.status(200).send("logged out");
             }
         })
@@ -82,6 +87,58 @@ recruiterRouter.get("/user/logout/recruiter", (req,res)=>{
         res.status(401).send(err.message);
     }
 })
+
+//get all applicants of a specific post
+recruiterRouter.get("/user/allapplicants/recruiter/:id", auth,recruiterCheck,ownerCheck,async (req,res)=>{
+    // try{
+    //     const{id} = req.params;
+    //     // console.log("***************")
+    //     // console.log(id);
+    //     // console.log("***************")
+    //     const foundPost = await JobModel.findById(id);
+    //     console.log(foundPost);
+    //     if(foundPost){
+    //         const {recruiterId} = req.cookies;
+    //         if(!recruiterId){
+    //             throw new Error("Please login again");
+    //         }else{
+    //             console.log(foundPost.postCreatedBy ,"==", recruiterId)
+    //             if(foundPost.postCreatedBy == recruiterId){
+    //                 const allApplicant = foundPost.applicants;
+    //                 if(allApplicant.length > 0){
+    //                     res.send(allApplicant)
+    //                 }else{
+    //                     throw new Error("No applicants to show")
+    //                 } 
+    //             }else{
+    //                 throw new Error("Only post owner can view applicants")
+    //             }
+    //         }
+    //     }else{
+    //         throw new Error("Invalid request Job post not found!!");
+    //     }
+    // }catch(err){
+    //     res.status(401).send(err.message);
+    // }
+
+
+    try{
+        const{id} = req.params;
+        const foundPost = await JobModel.findById(id);
+        const allApplicant = foundPost.applicants;
+        if(allApplicant.length > 0){
+            res.send(allApplicant)
+        }else{
+            throw new Error("No applicants to show")
+        } 
+    }catch(err){
+        res.status(401).send(err.message);
+    }
+})
+
+
+
+
 
 
 module.exports = recruiterRouter;

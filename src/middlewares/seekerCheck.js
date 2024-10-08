@@ -1,19 +1,20 @@
 const UserModel = require("../model/userModel");
 
-
-//ensures the login user must be a user of recruiter type
-async function recruiterCheck(req,res,next){
+async function seekerCheck(req,res,next){
     try{
-        const {recruiterId} = req.cookies;
-        if(!recruiterId){
+        const {seekerID,recruiterId} = req.cookies;
+        if(recruiterId && !seekerID){
+            throw new Error("Recruiter cannot apply for jobs");
+        }
+        else if(!seekerID){
             throw new Error("Please login again");
         }else{
-            console.log(recruiterId);
-            const foundUser = await UserModel.findById(recruiterId);
+            console.log(seekerID);
+            const foundUser = await UserModel.findById(seekerID);
             console.log(foundUser);
             if(foundUser){
                 const type = foundUser.type;
-                if(type == "recruiter"){
+                if(type == "seeker"){
                     next();
                 }else{
                     throw new Error("Un-authorised access");
@@ -28,4 +29,4 @@ async function recruiterCheck(req,res,next){
     }
 }
 
-module.exports = recruiterCheck;
+module.exports = seekerCheck;

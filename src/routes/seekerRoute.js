@@ -47,6 +47,9 @@ seekerRouter.post("/user/submitRegistrationForm",validateUserRegistration, async
 seekerRouter.post("/user/login/seeker", async (req,res)=>{
     try{
         const{email,password: userPassword} = req.body;
+
+        
+        
         // console.log(email,password);
         const foundUser = await UserModel.findOne({email});
         // console.log(foundUser.firstName);
@@ -54,7 +57,7 @@ seekerRouter.post("/user/login/seeker", async (req,res)=>{
         const isValidated = await bcrypt.compare(userPassword, foundUser.password);
         if(isValidated){
             req.session.userId = foundUser._id;
-            res.cookie("recruiterId", foundUser._id);
+            res.cookie("seekerID", foundUser._id);
             return res.send("loggedin" + foundUser);
         }else{
             console.log("error in password");
@@ -79,6 +82,9 @@ seekerRouter.get("/user/logout/seeker", (req,res)=>{
             if(err){
                 throw new Error("Log out could not be completed at this moment");
             }else{
+                res.cookie("seekerID", null);
+                res.clearCookie('connect.sid');
+                res.clearCookie('seekerID');
                 res.status(200).send("logged out");
             }
         })
