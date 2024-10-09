@@ -9,7 +9,7 @@ const {auth} = require("../middlewares/auth.js");
 const JobModel = require("../model/jobModel.js");
 const recruiterCheck = require("../middlewares/recruiterCheck.js");
 const ownerCheck = require("../middlewares/ownerCheck.js");
-
+const clearCookie = require("../middlewares/clearCookie.js");
 
 
 recruiterRouter.get("/user/recruiter", (req,res)=>{
@@ -55,6 +55,15 @@ recruiterRouter.post("/user/login/recruiter", async (req,res)=>{
     if(foundUser){   
         const isValidated = await bcrypt.compare(userPassword, foundUser.password);
         if(isValidated && foundUser.type === "recruiter"){
+            const {recruiterId, seekerID} = req.cookies;
+            // console.log(recruiterId, seekerID);
+            
+            if(recruiterId){
+                res.clearCookie("recruiterId");
+            }
+            if(seekerID){
+                res.clearCookie("seekerID");
+            }
             req.session.userId = foundUser._id;
             res.cookie("recruiterId", foundUser._id);
             return res.send("loggedin" + foundUser);

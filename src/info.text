@@ -1,0 +1,38 @@
+"done":-
+    "seeker":-
+    => can be registered,
+    => login,
+    => logout,
+    => can apply for job,
+    => can see a specific job poster view
+    => cannot create job poster
+
+
+    "recruiter":-
+    => can be registered,
+    => login,
+    => logout,
+    => create job poster,
+    => edit job poster(they owns)
+    => delete job poster(they owns)
+    => can see all applied candidated applied to that poster(they owns),
+    =>  cannot apply for jobs.
+
+
+
+
+
+
+
+
+
+
+
+"To do":-
+    => during login clear all cookies. ✅
+                => (if seeker cookie present cleared that if recruiter cookie present cleared that {session also need to be cleared or not as session is  created way before login so cleared it can hinders some of the operation} CHECK THIS THOUGHT)
+
+    => seekers can view all jobs(pagination is a plus and needs to be added). ✅
+    => before applying for any job the seeker can see their details(form view) and can edit details.
+    => recruiter can see all their job poster. ✅ 
+    => implement set instead of array in applicants field to avoid multiple enties from single candidate  ✅ (check on frontend side for error)

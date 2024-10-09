@@ -111,4 +111,25 @@ jobRouter.delete("/jobs/delete/recruiter/:id",auth, recruiterCheck, ownerCheck,a
 
 
 
+//get all jobs only for seeker
+jobRouter.get("/jobs/alljobs/seeker", auth, seekerCheck, async(req,res)=>{
+    try{
+        const allJobsPosters = await JobModel.find({});
+        res.send(allJobsPosters);
+    }catch(err){
+        res.status(401).send(err.message);
+    }
+})
+
+//owner can see their all posts
+jobRouter.get("/jobs/alljobs/recruiter", auth, recruiterCheck, async(req,res)=>{
+    try{
+        const {recruiterId} = req.cookies;
+        const alljobs = await JobModel.find({postCreatedBy : recruiterId});
+        res.send(alljobs);
+    }catch(err){
+        res.status(401).send(err.message);
+    }
+})
+
 module.exports = jobRouter;

@@ -115,9 +115,21 @@ const jobSchema = new mongoose.Schema({
         ref : "UserModel"
     },
 
-    applicants : {
-        type : [mongoose.Schema.Types.ObjectId],
-        ref : "UserModel"
+    // applicants : {
+    //     type : [mongoose.Schema.Types.ObjectId],
+    //     ref : "UserModel"
+    // }
+
+    applicants: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: "UserModel",
+        validate: {
+            validator: function (applicants) {
+                // Ensure the applicants array has unique entries
+                return applicants.length === new Set(applicants.map(String)).size;    //application.length === new Set.length return true else false
+            },
+            message: "You already have applied for this job"
+        }
     }
 })
 

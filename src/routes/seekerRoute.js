@@ -48,14 +48,22 @@ seekerRouter.post("/user/login/seeker", async (req,res)=>{
     try{
         const{email,password: userPassword} = req.body;
 
-        
+
         
         // console.log(email,password);
         const foundUser = await UserModel.findOne({email});
         // console.log(foundUser.firstName);
     if(foundUser){   
         const isValidated = await bcrypt.compare(userPassword, foundUser.password);
-        if(isValidated){
+        if(isValidated && foundUser.type == "seeker"){
+            const {recruiterId, seekerID} = req.cookies;
+            // console.log(recruiterId, seekerID);
+            if(recruiterId){
+                res.clearCookie("recruiterId");
+            }
+            if(seekerID){
+                res.clearCookie("seekerID");
+            }
             req.session.userId = foundUser._id;
             res.cookie("seekerID", foundUser._id);
             return res.send("loggedin" + foundUser);
