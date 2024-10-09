@@ -12,7 +12,12 @@ const seekerRouter = require("./src/routes/seekerRoute.js");
 const recruiterRouter = require("./src/routes/recruiterRoute.js");
 const jobRouter = require("./src/routes/jobRouter.js");
 const cookieParser = require("cookie-parser");
+const path = require("path");
 
+
+app.set("view engine", "ejs");
+app.set("views", path.join(path.resolve(), "src", "view"));
+app.use(express.static(path.join(path.resolve(), "src", "public")));
 
 app.use(cookieParser());
 app.use(express.urlencoded({extended : true}));
@@ -28,7 +33,9 @@ app.use(session({
 app.use("/",seekerRouter);
 app.use("/",recruiterRouter);
 app.use("/",jobRouter);
-
+app.use("/",(req,res)=>{
+    res.render("layouts");
+})
 
 //recruiter
 

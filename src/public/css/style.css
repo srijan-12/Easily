@@ -1,0 +1,93 @@
+.navbar{
+    background-color: #191641;
+    padding: 2vh 2vw;
+    gap: 2vw;
+    box-shadow: 5px 5px 20px rgba(255, 255, 255, 0.3);
+}
+.homeBody{
+    background-color: #191641;
+    height: 100vh;
+}
+h1 {
+    font-size: clamp(1rem, 4vw, 3rem);
+    white-space: nowrap;
+    /* font-weight: 700; */
+}
+h2{
+    font-size: clamp(0.8rem, 3vw, 2rem);
+    white-space: nowrap;
+}
+h4{
+    font-size: clamp(0.6rem, 2vw, 1.3rem);
+    white-space: nowrap;
+}
+
+
+.divMain{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.colDiv1{
+    height: 40%;
+    /* width: 100%; */
+    margin-top: auto ;
+    margin-bottom: auto;
+}
+.colImg{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.homeimg {
+    width: 60%;
+    margin-top: 10vh; 
+}
+
+@media (min-width: 768px) { 
+    .homeimg {
+        width: 95%;
+    }
+}
+.head1{
+    color: #FF2C90;
+}
+.head2, .head3{
+    color: white;
+    font-weight: 200;
+}
+
+.buttons{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-top: 5vh;
+}
+
+.buttons a{
+    text-decoration: none;
+    background-color: #FF2C90;
+    color: white;
+    height: 5vh;
+    border-radius: 6px;
+    width: 14vw;
+    display: flex;   
+    justify-content: center;
+    align-items: center; 
+    font-weight: 600;
+}
+
+.btnDiv{
+    width: 70%;
+}
+
+@media screen and (max-width: 768px){
+    .homeRow{
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+}

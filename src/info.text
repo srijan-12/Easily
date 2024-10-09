@@ -1,4 +1,5 @@
 "done":-
+
     "seeker":-
     => can be registered,
     => login,
@@ -16,11 +17,26 @@
     => edit job poster(they owns)
     => delete job poster(they owns)
     => can see all applied candidated applied to that poster(they owns),
-    =>  cannot apply for jobs.
+    => cannot apply for jobs.
 
 
 
 
+
+
+
+
+
+
+
+✅ "To do":-
+    => during login clear all cookies. ✅
+                => (if seeker cookie present cleared that if recruiter cookie present cleared that {session also need to be cleared or not as session is  created way before login so cleared it can hinders some of the operation} CHECK THIS THOUGHT)
+
+    => seekers can view all jobs(pagination is a plus and needs to be added). ✅
+    => before applying for any job the seeker can see their details(form view) and can edit details.
+    => recruiter can see all their job poster. ✅ 
+    => implement set instead of array in applicants field to avoid multiple enties from single candidate  ✅ (check on frontend side for error)
 
 
 
@@ -29,10 +45,18 @@
 
 
 "To do":-
-    => during login clear all cookies. ✅
-                => (if seeker cookie present cleared that if recruiter cookie present cleared that {session also need to be cleared or not as session is  created way before login so cleared it can hinders some of the operation} CHECK THIS THOUGHT)
+    => Home page ✅
+        -> navbar :- login and registers
+        -> body :- gimmick + some button to log in
+        ->footer : depends
 
-    => seekers can view all jobs(pagination is a plus and needs to be added). ✅
-    => before applying for any job the seeker can see their details(form view) and can edit details.
-    => recruiter can see all their job poster. ✅ 
-    => implement set instead of array in applicants field to avoid multiple enties from single candidate  ✅ (check on frontend side for error)
+    => forms multer to store profile pic and resume
+        -> register seeker + register recruiter + register job(edit may be in same)
+        -> login seeker + login recruiter
+        -> 
+        
+    => Job page
+        -> Job Cards * number of jobs (for recruiter and for seeker)
+    
+    => single job page(for owner to update, delete, and see responses  and for seeker to apply)
+        
