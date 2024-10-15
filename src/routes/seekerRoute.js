@@ -6,9 +6,7 @@ const {generateHashPassword} = require("../middlewares/hashPassword.js");
 const bcrypt = require("bcrypt");
 const session = require("express-session");
 const {auth} = require("../middlewares/auth.js");
-
-
-
+const uploadFiles = require("../../cloudConfig.js");
 
 
 
@@ -19,40 +17,44 @@ seekerRouter.get("/user/loginForm", (req,res)=>{
     res.send("login form!!!")
 })
 
+seekerRouter.get("/user/getRegistrationForm", (req,res)=>{
+    res.render("layouts",{body : "seekerRegister", errors: null});
+})
 
 
-
-//registration
-seekerRouter.post("/user/submitRegistrationForm",validateUserRegistration, async (req,res)=>{
+//registration validateUserRegistration
+seekerRouter.post("/user/submitRegistrationForm",uploadFiles.fields([
+    {name : "profileUrl", maxCount : 1}, 
+    {name : "resumeLink", maxCount : 1}
+    ]), validateUserRegistration,async (req,res)=>{
     try{
-        const{firstName,lastName,email,phoneNumber,password,gender,profileUrl,resumeLink,type,skills,expYears,company} = req.body;
-        console.log(req.body);
+        const{firstName,lastName,email,phoneNumber,password,gender,skills,expYears,company} = req.body;
+        console.log(skills);
+        const profileUrl = req.files.profileUrl ? req.files.profileUrl[0].path : null;
+        const resumeLink = req.files.resumeLink ? req.files.resumeLink[0].path : null;
         const hashedPassword = await generateHashPassword(password);
-        console.log(hashedPassword);
         const userData = {firstName,lastName,email,phoneNumber,password : hashedPassword,gender,profileUrl,resumeLink,type : "seeker",skills,expYears,company};
         const newUser = new UserModel(userData);
         await newUser.save();
         res.status(200).send("validation");
     }catch(err){
         console.log(err.message);
-        res.status(401).send(err.message);
+        // res.status(401).send(err.message);
+        res.render("layouts", {body : "seekerRegister", errors : err.message});
     }
 })
 
-
-
-
+seekerRouter.get("/user/getLoginForm/seeker",(req,res)=>{
+    console.log("get hits")
+    res.render("layouts", {body : "seekerLoginForm", errors : null});
+})
 
 //login
 seekerRouter.post("/user/login/seeker", async (req,res)=>{
     try{
+        console.log("post hits");
         const{email,password: userPassword} = req.body;
-
-
-        
-        // console.log(email,password);
         const foundUser = await UserModel.findOne({email});
-        // console.log(foundUser.firstName);
     if(foundUser){   
         const isValidated = await bcrypt.compare(userPassword, foundUser.password);
         if(isValidated && foundUser.type == "seeker"){
@@ -66,9 +68,9 @@ seekerRouter.post("/user/login/seeker", async (req,res)=>{
             }
             req.session.userId = foundUser._id;
             res.cookie("seekerID", foundUser._id);
-            return res.send("loggedin" + foundUser);
+            // return res.send("loggedin" + foundUser);   //jobs page or home page may be
+
         }else{
-            console.log("error in password");
             throw new Error("Invalid Credentialsp");
         }
     }else{
@@ -76,7 +78,7 @@ seekerRouter.post("/user/login/seeker", async (req,res)=>{
         throw new Error("Invalid Credentials");
     }
     }catch(err){
-        res.send(err.message);
+        res.render("layouts", {body : "seekerLoginForm", errors : err.message});
     }
 });
 

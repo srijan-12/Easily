@@ -10,17 +10,20 @@ const JobModel = require("../model/jobModel.js");
 const recruiterCheck = require("../middlewares/recruiterCheck.js");
 const ownerCheck = require("../middlewares/ownerCheck.js");
 const clearCookie = require("../middlewares/clearCookie.js");
-
+const uploadFiles = require("../../cloudConfig.js");
 
 recruiterRouter.get("/user/recruiter", (req,res)=>{
-    res.send("recruiter login form!!!");
+    // res.send("recruiter login form!!!");
+    res.render("layouts");
 })
 
 
-recruiterRouter.post("/user/submitRegistrationForm/recruiter",validateUserRegistrationForRecruiter, async (req,res)=>{
+recruiterRouter.post("/user/submitRegistrationForm/recruiter",uploadFiles.fields([
+    {name : "profileUrl", maxCount : 1}]),validateUserRegistrationForRecruiter, async (req,res)=>{
     try{
-        const{firstName,lastName,email,phoneNumber,password,gender,profileUrl,resumeLink,type,skills,expYears,company} = req.body;
-        console.log(req.body);
+        const{firstName,lastName,email,phoneNumber,password,gender,resumeLink,type,skills,expYears,company} = req.body;
+        const profileUrl = req.files.profileUrl ? req.files.profileUrl[0].path : null;
+        console.log(profileUrl);
         const hashedPassword = await generateHashPassword(password);
         console.log(hashedPassword);
         const userData = {firstName,
@@ -45,6 +48,10 @@ recruiterRouter.post("/user/submitRegistrationForm/recruiter",validateUserRegist
     }
 })
 
+recruiterRouter.get("/user/getLoginForm/recruiter",(req,res)=>{
+    console.log("get hits")
+    res.render("layouts", {body : "recruiterLoginForm", errors : null});
+})
 
 recruiterRouter.post("/user/login/recruiter", async (req,res)=>{
     try{
@@ -66,7 +73,7 @@ recruiterRouter.post("/user/login/recruiter", async (req,res)=>{
             }
             req.session.userId = foundUser._id;
             res.cookie("recruiterId", foundUser._id);
-            return res.send("loggedin" + foundUser);
+            // return res.send("loggedin" + foundUser);        //see all your job posters or post new job here
         }else{
             console.log("error in password");
             throw new Error("Invalid Credentialsp");

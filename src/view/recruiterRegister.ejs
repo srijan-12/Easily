@@ -1,0 +1,48 @@
+
+<div class="container mt-5">
+  <h2 class="mb-4">Registration Form for recruiter</h2>
+  <form action="/user/submitRegistrationForm/recruiter" method="post" enctype="multipart/form-data">
+      <div class="row">
+          <div class="col-md-6 mb-3">
+              <label for="firstName" class="form-label">First Name</label>
+              <input type="text" class="form-control" id="firstName" name="firstName" required>
+          </div>
+          <div class="col-md-6 mb-3">
+              <label for="lastName" class="form-label">Last Name</label>
+              <input type="text" class="form-control" id="lastName" name="lastName">
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-md-6 mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" name="email" required>
+          </div>
+          <div class="col-md-6 mb-3">
+              <label for="phoneNumber" class="form-label">Phone Number</label>
+              <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" required>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-md-6 mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control" id="password" name="password" required>
+          </div>
+          <div class="col-md-6 mb-3">
+              <label for="gender" class="form-label">Gender</label>
+              <select class="form-select" id="gender" name="gender" required>
+                  <option value="">Select Gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="others">Others</option>
+              </select>
+          </div>
+      </div>
+          <div class="col-md-12 mb-3">
+              <label for="profileUrl" class="form-label">Profile Picture</label>
+              <input type="file" class="form-control" id="profileUrl" name="profileUrl" required>
+          </div>
+      <div class="d-grid gap-2">
+          <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+  </form>
+</div> 

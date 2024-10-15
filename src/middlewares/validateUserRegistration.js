@@ -3,8 +3,8 @@ const {isValidNumber} = require("libphonenumber-js");
 
 function validateUserRegistration(req,res,next){
     try{
-        const{firstName,lastName,email,phoneNumber,password,gender,profileUrl,resumeLink,type,skills,expYears,company} = req.body;
-
+        const{firstName,email,phoneNumber,password,gender,skills,expYears} = req.body;
+        const {profileUrl,resumeLink} = req.body;
         if(!firstName || firstName.length < 3){
             throw new Error("First name should be of atleast 3 characters long");
         }
@@ -20,13 +20,14 @@ function validateUserRegistration(req,res,next){
         if (!gender || !["male", "female", "others"].includes(gender.toLowerCase().trim())) {
             throw new Error("Enter correct gender");
         }        
-        if(!profileUrl || !validator.isURL(profileUrl)){
-            throw new Error("Enter valid Image URL md");
-        }
-        if(!resumeLink || !validator.isURL(resumeLink)){
-            throw new Error("Enter valid Resume URL md");
-        }
-        if(!skills || skills.length < 2){
+        // if(!profileUrl || !validator.isURL(profileUrl)){
+        //     throw new Error("Enter valid Image URL md");
+        // }
+        // if(!resumeLink || !validator.isURL(resumeLink)){
+        //     throw new Error("Enter valid Resume URL md");
+        // }
+        if(!skills || skills.length < 8){
+            console.log(skills.length);
             throw new Error("Enter atleast 3 of your top skills md");
         }
         if(!expYears || expYears <= -1){
@@ -37,7 +38,7 @@ function validateUserRegistration(req,res,next){
 
     }catch(err){
         console.log(err);
-        res.status(402).send(err.message);
+        res.render("layouts", {body : "seekerRegister", errors : err.message});
     }
 }
 
@@ -64,9 +65,9 @@ function validateUserRegistrationForRecruiter(req,res,next){
         if (!gender || !["male", "female", "others"].includes(gender.toLowerCase().trim())) {
             throw new Error("Enter correct gender");
         }        
-        if(!profileUrl || !validator.isURL(profileUrl)){
-            throw new Error("Enter valid Image URL md");
-        }
+        // if(!profileUrl || !validator.isURL(profileUrl)){
+        //     throw new Error("Enter valid Image URL md");
+        // }
         next();
 
     }catch(err){

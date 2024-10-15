@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const app = express();
 const router = require("express-router");
@@ -13,15 +14,18 @@ const recruiterRouter = require("./src/routes/recruiterRoute.js");
 const jobRouter = require("./src/routes/jobRouter.js");
 const cookieParser = require("cookie-parser");
 const path = require("path");
+const multer = require("multer");
 
-
+app.use(express.static(path.join(path.resolve(), "src", "public")));
+// app.use(express.json());
+// app.use(express.urlencoded({extended : true}));
 app.set("view engine", "ejs");
 app.set("views", path.join(path.resolve(), "src", "view"));
-app.use(express.static(path.join(path.resolve(), "src", "public")));
-
 app.use(cookieParser());
-app.use(express.urlencoded({extended : true}));
 app.use(express.json());
+app.use(express.urlencoded({extended : true}));
+
+
 app.use(session({
     secret : "s3cR3tK3y!@$qW3rTy!9^kLpXyZ#8fBvNmA1",
     resave : false,
@@ -33,9 +37,9 @@ app.use(session({
 app.use("/",seekerRouter);
 app.use("/",recruiterRouter);
 app.use("/",jobRouter);
-app.use("/",(req,res)=>{
-    res.render("layouts");
-})
+// app.use("/",(req,res)=>{
+//     res.render("layouts");
+// })
 
 //recruiter
 

@@ -1,75 +1,7 @@
-"done":-
 
-    "seeker":-
-    => can be registered,
-    => login,
-    => logout,
-    => can apply for job,
-    => can see a specific job poster view
-    => cannot create job poster
-
-
-    "recruiter":-
-    => can be registered,
-    => login,
-    => logout,
-    => create job poster,
-    => edit job poster(they owns)
-    => delete job poster(they owns)
-    => can see all applied candidated applied to that poster(they owns),
-    => cannot apply for jobs.
-
-
-
-
-
-
-
-
-
-
-
-✅ "To do":-
-    => during login clear all cookies. ✅
-                => (if seeker cookie present cleared that if recruiter cookie present cleared that {session also need to be cleared or not as session is  created way before login so cleared it can hinders some of the operation} CHECK THIS THOUGHT)
-
-    => seekers can view all jobs(pagination is a plus and needs to be added). ✅
-    => before applying for any job the seeker can see their details(form view) and can edit details.
-    => recruiter can see all their job poster. ✅ 
-    => implement set instead of array in applicants field to avoid multiple enties from single candidate  ✅ (check on frontend side for error)
-
-
-
-
-
-
-
-"To do":-
-    => Home page ✅
-        -> navbar :- login and registers
-        -> body :- gimmick + some button to log in
-        ->footer : depends
-
-    => forms multer to store profile pic and resume
-        -> register seeker + register recruiter + register job(edit may be in same)     //user(both) registration form is ready and working
-        -> login seeker + login recruiter      ✅
-        -> 
-        
-    => Job page
-        -> Job Cards * number of jobs (for recruiter and for seeker)
-    
-    => single job page(for owner to update, delete, and see responses  and for seeker to apply)
-        
-
-
-
-
-
-
-
-        <div class="container mt-5">
+<div class="container mt-5">
     <h2 class="mb-4">Registration Form</h2>
-    <form action="/user/submitRegistrationForm" method="post">
+    <form action="/user/submitRegistrationForm" method="post" enctype="multipart/form-data">
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="firstName" class="form-label">First Name</label>
@@ -105,16 +37,16 @@
                 </select>
             </div>
         </div>
-        <!-- <div class="row"> -->
-            <!-- <div class="col-md-6 mb-3">
+        <div class="row">
+            <div class="col-md-6 mb-3">
                 <label for="profileUrl" class="form-label">Profile Picture</label>
                 <input type="file" class="form-control" id="profileUrl" name="profileUrl" required>
             </div>
             <div class="col-md-6 mb-3">
                 <label for="resumeLink" class="form-label">Resume</label>
                 <input type="file" class="form-control" id="resumeLink" name="resumeLink" required>
-            </div> -->
-        <!-- </div> -->
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label for="skills" class="form-label">Skills</label>
@@ -135,4 +67,5 @@
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
     </form>
-</div>
+  </div> 
+  
