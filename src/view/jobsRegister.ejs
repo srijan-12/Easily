@@ -1,71 +1,60 @@
-
+<%if(errors){%>
+    <div class="alert alert-danger" role="alert">
+        <%=errors%>
+      </div>
+  <%}%>
 <div class="container mt-5">
-    <h2 class="mb-4">Registration Form</h2>
-    <form action="/user/submitRegistrationForm" method="post" enctype="multipart/form-data">
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <label for="firstName" class="form-label">First Name</label>
-                <input type="text" class="form-control" id="firstName" name="firstName" required>
-            </div>
-            <div class="col-md-6 mb-3">
-                <label for="lastName" class="form-label">Last Name</label>
-                <input type="text" class="form-control" id="lastName" name="lastName">
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="email" required>
-            </div>
-            <div class="col-md-6 mb-3">
-                <label for="phoneNumber" class="form-label">Phone Number</label>
-                <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" required>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" name="password" required>
-            </div>
-            <div class="col-md-6 mb-3">
-                <label for="gender" class="form-label">Gender</label>
-                <select class="form-select" id="gender" name="gender" required>
-                    <option value="">Select Gender</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="others">Others</option>
-                </select>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <label for="profileUrl" class="form-label">Profile Picture</label>
-                <input type="file" class="form-control" id="profileUrl" name="profileUrl" required>
-            </div>
-            <div class="col-md-6 mb-3">
-                <label for="resumeLink" class="form-label">Resume</label>
-                <input type="file" class="form-control" id="resumeLink" name="resumeLink" required>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <label for="skills" class="form-label">Skills</label>
-                <input type="text" class="form-control" id="skills" name="skills" placeholder="Comma-separated skills" required>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <label for="expYears" class="form-label">Experience (Years)</label>
-                <input type="number" class="form-control" id="expYears" name="expYears" min="0" required>
-            </div>
-            <div class="col-md-6 mb-3">
-                <label for="company" class="form-label">Company</label>
-                <input type="text" class="form-control" id="company" name="company">
-            </div>
-        </div>
-        <div class="d-grid gap-2">
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
+    <h2 class="text-center mb-4">Job Posting Form</h2>
+    <form action="/job/postJoBRegistrationForm" method="post">
+      <div class="mb-3">
+        <label for="title" class="form-label">Job Title</label>
+        <input type="text" class="form-control" id="title" name="title" placeholder="Enter job title" required>
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Job Description</label>
+        <textarea class="form-control" id="description" name="description" rows="3" placeholder="Enter job description" required></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="category" class="form-label">Job Category</label>
+        <select class="form-select" id="category" name="category" required>
+          <option value="" disabled selected>Select job category</option>
+          <option value="tech">Tech</option>
+          <option value="non-tech">Non-Tech</option>
+        </select>
+      </div>
+      
+      <div class="mb-3">
+        <label for="designation" class="form-label">Designation</label>
+        <input type="text" class="form-control" id="designation" name="designation" placeholder="Enter designation" required>
+      </div>
+      <div class="mb-3">
+        <label for="location" class="form-label">Location</label>
+        <input type="text" class="form-control" id="location" name="location" placeholder="Enter job location" required>
+      </div>
+      <div class="mb-3">
+        <label for="company" class="form-label">Company Name</label>
+        <input type="text" class="form-control" id="company" name="company" placeholder="Enter company name" required>
+      </div>
+      <div class="mb-3">
+        <label for="salary" class="form-label">Salary</label>
+        <input type="number" class="form-control" id="salary" name="salary" placeholder="Enter salary" required>
+      </div>
+      <div class="mb-3">
+        <label for="experienceReq" class="form-label">Experience Required</label>
+        <input type="text" class="form-control" id="experienceReq" name="exprienceReq" placeholder="Enter experience required" required>
+      </div>
+      <div class="mb-3">
+        <label for="openings" class="form-label">Number of Openings</label>
+        <input type="number" class="form-control" id="openings" name="opeanings" placeholder="Enter number of openings" required>
+      </div>
+      <div class="mb-3">
+        <label for="skillsRequired" class="form-label">Skills Required</label>
+        <input type="text" class="form-control" id="skillsRequired" name="skillsRequired" placeholder="Enter required skills" required>
+      </div>
+      <div class="mb-3">
+        <label for="lastDateApply" class="form-label">Last Date to Apply</label>
+        <input type="date" class="form-control" id="lastDateApply" name="lastDateApply" required>
+      </div>
+      <button type="submit" class="btn btn-primary w-100">Submit Job Post</button>
     </form>
-  </div> 
-  
+  </div>

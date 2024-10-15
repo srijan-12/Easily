@@ -15,7 +15,7 @@ async function auth(req,res,next){
             throw new Error("Please login again!!")
         }
     }catch(err){
-        res.status(401).send("Unauthorized: Please login again.");
+        res.status(401).send("Unauthorized: Please login again. render some views here auth middleware");
 
     }
 }

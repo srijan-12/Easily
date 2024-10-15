@@ -9,7 +9,7 @@ const ownerCheck = require("../middlewares/ownerCheck.js");
 const jobRouter = express.Router();
 
 jobRouter.get("/job/getPostForm", auth,recruiterCheck,(req,res)=>{
-    res.send("This js job form fill it up");
+    res.render("layouts", {body : "jobsRegister", errors: null})
 })
 
 
@@ -21,12 +21,15 @@ jobRouter.post("/job/postJoBRegistrationForm",auth,recruiterCheck,validateJobReg
     try{
         const {recruiterId} = req.cookies;
         const{title,description,category,designation,location,company,salary,exprienceReq,opeanings,skillsRequired,lastDateApply,postCreatedBy} = req.body;
-        const jobX = {title,description,category,designation,location,company,salary,exprienceReq,opeanings,skillsRequired,lastDateApply,postCreatedBy: recruiterId}
+        const skillsArray = skillsRequired.split(',').map((skill)=> skill.trim());
+        // console.log(skillsArray);
+        const jobX = {title,description,category,designation,location,company,salary,exprienceReq,opeanings,skillsRequired:skillsArray,lastDateApply,postCreatedBy: recruiterId}
         const newJob = new JobModel(jobX);
         await newJob.save();
-        res.send("done");
+        res.send("done + render all job cards here");
     }catch(err){
-        res.send(err.message);
+        res.render("layouts", {body: "jobsRegister", errors: err.message});
+
     }
 })
 

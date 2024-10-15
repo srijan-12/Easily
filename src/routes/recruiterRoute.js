@@ -56,9 +56,9 @@ recruiterRouter.get("/user/getLoginForm/recruiter",(req,res)=>{
 recruiterRouter.post("/user/login/recruiter", async (req,res)=>{
     try{
         const{email,password: userPassword} = req.body;
-        // console.log(email,password);
+        console.log(email,userPassword);
         const foundUser = await UserModel.findOne({email});
-        // console.log(foundUser.firstName);
+        console.log(foundUser.firstName);
     if(foundUser){   
         const isValidated = await bcrypt.compare(userPassword, foundUser.password);
         if(isValidated && foundUser.type === "recruiter"){
@@ -74,6 +74,7 @@ recruiterRouter.post("/user/login/recruiter", async (req,res)=>{
             req.session.userId = foundUser._id;
             res.cookie("recruiterId", foundUser._id);
             // return res.send("loggedin" + foundUser);        //see all your job posters or post new job here
+            return res.send("loggedin");
         }else{
             console.log("error in password");
             throw new Error("Invalid Credentialsp");

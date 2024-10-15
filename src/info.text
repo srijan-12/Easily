@@ -51,7 +51,7 @@
         ->footer : depends
 
     => forms multer to store profile pic and resume
-        -> register seeker + register recruiter + register job(edit may be in same)     //user(both) registration form is ready and working
+        -> register seeker + register recruiter + register job(edit may be in same)     //user(both) + jobs registration form is ready and working
         -> login seeker + login recruiter      ✅
         -> 
         
