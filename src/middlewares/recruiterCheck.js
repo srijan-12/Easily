@@ -24,7 +24,7 @@ async function recruiterCheck(req,res,next){
         }
     }catch(err){
         console.log("error in recruiterCheck")
-        res.status(400).send(err.message);
+        res.render("layouts", {body : "recruiterLoginForm", errors : err.message});
     }
 }
 

@@ -15,8 +15,10 @@ const jobRouter = require("./src/routes/jobRouter.js");
 const cookieParser = require("cookie-parser");
 const path = require("path");
 const multer = require("multer");
+const methodOverride = require("method-override")
 
 app.use(express.static(path.join(path.resolve(), "src", "public")));
+app.use(methodOverride('_method'));
 // app.use(express.json());
 // app.use(express.urlencoded({extended : true}));
 app.set("view engine", "ejs");
@@ -32,6 +34,16 @@ app.use(session({
     saveUninitialized : true,
     cookie : {secret : false}
 }))
+app.use((req, res, next) => {
+    if (req.cookies.seekerID) {
+        res.locals.User = 'seeker';
+    } else if (req.cookies.recruiterID) {
+        res.locals.User = 'recruiter';
+    } else {
+        res.locals.User = null;
+    }
+    next();
+});
 
 
 app.use("/",seekerRouter);

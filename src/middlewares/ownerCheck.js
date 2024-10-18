@@ -21,7 +21,7 @@ async function ownerCheck(req,res,next){
             throw new Error("Invalid request Job post not found!!");
         }
     }catch(err){
-        res.status(401).send(err.message);
+        res.render("layouts", {body : "recruiterLoginForm", errors : err.message});
     }
 }
 

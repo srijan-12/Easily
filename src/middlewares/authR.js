@@ -1,11 +1,11 @@
 const UserModel = require("../model/userModel.js");
-async function auth(req,res,next){
+async function authR(req,res,next){
     try{
         if(req.session.userId){
             const userid = req.session.userId;
             const result = await UserModel.findById(userid);
             if(result){
-                console.log("user is auth")
+                console.log("user is auth rec")
                 next();
             }else{
                 throw new Error("Please login again!!")
@@ -15,9 +15,9 @@ async function auth(req,res,next){
             throw new Error("Please login again!!")
         }
     }catch(err){
-        res.render("layouts", {body : "seekerLoginForm", errors : err.message});
+        res.render("layouts", {body : "recruiterLoginForm", errors : err.message});
 
     }
 }
 
-module.exports = {auth};
+module.exports = {authR};

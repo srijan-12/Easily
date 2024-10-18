@@ -1,0 +1,103 @@
+<%if(errors){%>
+    <div class="alert alert-danger" role="alert">
+        <%=errors%>
+      </div>
+<%}%>
+<div class="container-fluid jobPageMain">
+    <div class="jobPage">
+        <div class="jobCardsHere">
+            <%if(jobs){%>
+                <%jobs.forEach((job)=>{%>
+
+
+                    <div class="mainBox">
+
+                        <div class="section1">
+                        <div class="row activeHire">
+                            <div class="col-8">
+                                <div class="content1">
+                                    Actively hiring
+                                    <i class="fa-solid fa-chart-line"></i>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="row orgName">
+                            <div class="col-12">
+                                <%=job.company%>
+                            </div>
+                        </div>
+                    
+                        <div class="row designation">
+                            <div class="col-12">
+                                <span class="span1"><%=job.category%></span><span> </span> <span class="span2"><%=job.designation%></span>
+                            </div>
+                        </div>
+                    
+                    </div>
+                        <div class="row location">
+                            <div class="col-9">
+                                <div class="content4">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    <%=job.location%>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    
+                        <div class="row salary">
+                            <div class="col-12">
+                                <%=job.salary%>
+                            </div>
+                        </div>
+                    
+                    
+                        <div class="section2">
+                        <!-- skills -->
+                        <div class="row skills">
+                            <div class="col-12">
+                                
+                                    <%if(jobs.skillsRequired){%>
+                                        <%skillsRequired.forEach((skill)=>{%>
+                                            <div class="skillbox">
+                                                <%=skill%>
+                                            </div>
+                                        <%})%>
+                                    <%}%>
+                                
+                            </div>
+                        </div>
+                         
+                    
+                        <div class="row button">
+                            <div class="col-12">
+                              <% if (seeker) { %>
+                                <% console.log(seeker)%>
+                                <% console.log(recruiter)%>
+                                <form action="/jobs/<%= job._id %>" method="get">
+                                  <button type="submit">View details</button>
+                                </form>
+                              <% } else if (recruiter) { %>
+                                <% console.log(seeker)%>
+                                <% console.log(recruiter)%>
+                                <form action="/jobs/recruiter/<%= job._id %>" method="get">
+                                  <button type="submit">View details</button>
+                                </form>
+                              <% } %>
+                            </div>
+                          </div>
+                          
+                    </div>
+                    
+                    </div>
+                <%})%>
+            <%}%>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+

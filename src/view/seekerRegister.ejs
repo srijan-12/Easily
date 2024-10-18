@@ -4,9 +4,9 @@
         <%=errors%>
       </div>
 <%}%>
-<div class="container mt-5">
-  <h2 class="mb-4">signup to apply for jobs</h2>
-  <form action="/user/submitRegistrationForm" method="post" enctype="multipart/form-data">
+<!-- <div class="container-fluid"  style="background-color: #07037a; height: 100vh;">
+  <h2 class="mb-4" style="background-color: white;">signup to apply for jobs</h2>
+  <form action="/user/submitRegistrationForm" method="post" enctype="multipart/form-data" style="background-color: white; padding: 1rem;">
       <div class="row">
           <div class="col-md-6 mb-3">
               <label for="firstName" class="form-label">First Name</label>
@@ -72,4 +72,86 @@
           <button type="submit" class="btn btn-primary">Submit</button>
       </div>
   </form>
-</div> 
+</div>  -->
+  
+  <div class="container-fluid" style="background-color: #07037a; height: 100vh;">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card mt-5">
+          <div class="card-body">
+            <h3 class="text-center mb-4">Signup to Apply for Jobs</h3>
+            <form action="/user/submitRegistrationForm" method="post" enctype="multipart/form-data">
+              
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label for="firstName" class="form-label">First Name</label>
+                  <input type="text" class="form-control" id="firstName" name="firstName" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="lastName" class="form-label">Last Name</label>
+                  <input type="text" class="form-control" id="lastName" name="lastName">
+                </div>
+              </div>
+  
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="phoneNumber" class="form-label">Phone Number</label>
+                  <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" required>
+                </div>
+              </div>
+  
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label for="password" class="form-label">Password</label>
+                  <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="gender" class="form-label">Gender</label>
+                  <select class="form-select" id="gender" name="gender" required>
+                    <option value="">Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="others">Others</option>
+                  </select>
+                </div>
+              </div>
+  
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label for="profileUrl" class="form-label">Profile Picture</label>
+                  <input type="file" class="form-control" id="profileUrl" name="profileUrl" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="resumeLink" class="form-label">Resume</label>
+                  <input type="file" class="form-control" id="resumeLink" name="resumeLink" required>
+                </div>
+              </div>
+  
+              <div class="mb-3">
+                <label for="skills" class="form-label">Skills</label>
+                <input type="text" class="form-control" id="skills" name="skills" placeholder="Comma-separated skills" required>
+              </div>
+  
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label for="expYears" class="form-label">Experience (Years)</label>
+                  <input type="number" class="form-control" id="expYears" name="expYears" min="0" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="company" class="form-label">Company</label>
+                  <input type="text" class="form-control" id="company" name="company">
+                </div>
+              </div>
+  
+              <button type="submit" class="btn btn-primary w-100">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

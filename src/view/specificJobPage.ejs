@@ -1,0 +1,96 @@
+<%if(errors){%>
+    <div class="alert alert-danger" role="alert">
+        <%=errors%>
+      </div>
+  <%}%>
+<%if(foundPost){%>
+    <div class="container-fluid mainSpecificJob">
+        <div class="container jobPoster">
+    
+    
+            <div class="row">
+                <div class="col-12 templateImgDiv">
+                    <img src="/asserts/templateForSpecificJob.png" alt="template">
+                </div>
+            </div>
+    
+    
+           <div class="texts">
+                <p class="fs-2"><span class="designations"><%=foundPost.designation%></span> opportunity in <span class="locations"><%=foundPost.location%></span> at <span class="companies"><%=foundPost.company%></span></p>
+           </div>
+    
+    
+           <div class="companyDiv companies fs-3"><%=foundPost.company%></div>
+           <div class="categoryDesignation fs-4 mb-3"><span><%=foundPost.category%> <%=foundPost.designation%></span></div>
+    
+    
+           <div class="sectiondesc ms-4">
+    
+    
+                <div class="locationDesc">
+                    <i class="fa-solid fa-location-dot me-3"></i>  <%=foundPost.location%>
+                </div>
+    
+                <div class="salaryDesc">
+                    <i class="fa-solid fa-indian-rupee-sign me-3"></i>  <%=foundPost.salary%>
+                </div>
+    
+                <div class="dateDesc">
+                    <i class="fa-solid fa-hourglass-start me-3"></i> Apply by <%=foundPost.lastDateApply.toLocaleString()%>
+                </div>
+    
+                <div class="opeaningsDesc">
+                    <i class="fa-solid fa-signal me-3"></i>Number of opeanings <%=foundPost.opeanings%>
+                </div>
+    
+                <%if(recruiter){%>
+                    <div class="applicantsDesc">
+                         <form action="/user/allapplicants/recruiter/<%=foundPost._id%>" method="get">
+                            <button type="submit" class="applicantBtn"> <i class="fa-solid fa-user-tie me-3"></i>Applicants <%=foundPost.applicants.length%></button>
+                         </form>
+                    </div>
+                <%}%>
+               
+           </div>
+    
+    
+           <div class="row skills ms-4 mt-4">
+            <div class="col-12">
+                
+                    <%if(foundPost.skillsRequired){%>
+                        <%foundPost.skillsRequired.forEach((skill)=>{%>
+                            <div class="skillbox ms-3">
+                                <%=skill%>
+                            </div>
+                        <%})%>
+                    <%}%>
+                
+            </div>
+        </div>
+    
+    
+        <%if(seeker){%>
+            <div class="applyBtn">
+                <form action="/jobs/apply/<%=foundPost._id%>" method="post">
+                    <button type="submit" class="btn btn-primary">Apply now</button>
+                </form>
+            </div>
+        <%}%>
+
+        <%if(recruiter){%>
+            <div class="Btns d-flex justify-content-center mb-5">
+                <form action="/jobs/getEditForm/recruiter/<%=foundPost._id%>" class="me-4">
+                    <button type="submit" class="btn btn-primary me-3 ">Edit</button>
+                </form>
+
+                <form action="/jobs/delete/recruiter/<%=foundPost._id%>?_method=DELETE" method="post">
+                    <button type="submit" class="btn btn-primary ms-6">Delete</button>
+                </form>
+            </div>
+        <%}%>
+    
+    
+        </div>
+    </div>
+<%}%>
+

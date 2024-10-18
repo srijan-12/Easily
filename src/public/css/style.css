@@ -1,3 +1,4 @@
+
 .navbar{
     background-color: #191641;
     padding: 2vh 2vw;
@@ -67,12 +68,13 @@ h4{
 }
 
 .buttons a{
+    padding: 1rem;
     text-decoration: none;
     background-color: #FF2C90;
     color: white;
     height: 5vh;
     border-radius: 6px;
-    width: 14vw;
+    /* width: 8vw; */
     display: flex;   
     justify-content: center;
     align-items: center; 
@@ -98,4 +100,167 @@ h4{
 
 .dropdown-item:hover{
     background-color: lightgray;
+}
+
+
+
+.jobPageMain{
+    height: 100vh;
+    width: 100vw;
+    background-color: #080536;
+    margin: 0;
+    padding: 0;
+}
+
+
+.jobCardsHere{
+    display: flex;
+    gap: 5rem;
+    flex-wrap: wrap;
+    margin-left: 2rem;
+}
+
+
+
+.mainBox{
+    /* height: 35vh; */
+    min-width: 230px;
+    max-width: 22vw;
+    border: 2px solid white;
+    background-color: #080536;
+    border-radius: 10px;
+    padding: 1rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-top: 2rem;
+}
+.section1{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.activeHire>.col-8{
+    background-color: #07037a;
+    border: 1px solid lightgreen;
+    color: white;
+    padding: 0.4rem;
+    border-radius: 8px;
+    margin-bottom: 0.8rem;
+}
+
+.fa-chart-line{
+    color: green;
+    margin-left: 0.5rem;
+}
+
+.orgName{
+    color: #F9BB0C;
+}
+
+.span1{
+    color: white;
+}
+.span2{
+    color: #10CAF0;
+}
+
+.location{
+    color: white;
+    margin-top: 0.7rem;
+    margin-bottom: 0.7rem;
+}
+
+.salary{
+    color: white;
+    margin-bottom: 0.7rem;
+}
+.skills{
+    flex-wrap: wrap;
+}
+.skillbox{
+    color:  #10CAF0;
+    border: 1px solid #10CAF0;
+    border-radius: 5px;
+    display: inline-block;
+    padding: 0.3rem;
+    margin-bottom: 0.8rem;
+}
+
+button{
+    width: 100%;
+    background-color: #07037a;
+    border: none;
+    color: white;
+    outline: 1px solid lightgreen;
+    border-radius: 8px;
+    padding: 0.3rem;
+}
+
+
+.jobPoster{
+    width: 95%;
+    margin: 2rem auto;
+    border: 1px solid black;
+}
+
+.jobPoster img{
+    width: 100%;
+}
+.applyBtn{
+    width: 15rem;
+    /* border: 2px solid red; */
+    margin: 0 auto;
+}
+.applyBtn button{
+    display: inline-block;
+    width: 10rem;
+    margin: 2rem auto;
+}
+
+.designations{
+    color: red;
+}
+.locations{
+    color: green;
+}
+.companies{
+    color: #10CAF0;
+}
+
+
+.extraOptions{
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+.hidden{
+    display: none;
+}
+
+
+.applicantBtn{
+    background-color: transparent;
+    color: red;
+    width: 9rem;
+    margin-left: -0.5rem;
+    border: none; 
+    outline: none;
+}
+
+.datatr{
+    background-color: rgb(224, 222, 222);
+}
+
+.resumeBtn{
+    width: 8rem;
+}
+
+.logoutBtn{
+    color: #C5C5D0;
+    text-decoration: none;
+    margin-top: 0.5rem;
+    margin-left: 3rem;
+
 }

@@ -1,0 +1,32 @@
+<div class="container mainApplicantList row">
+
+    <table class="col-12 ms-4" border="1px">
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Contact</th>
+            <th>Resume</th>
+        </tr>
+
+        <%if(applicants){%>
+            <%const count = 0%>
+            <%applicants.forEach((applicant)=>{%>
+                <tr class="datatr">
+                    <td><%=count+1%></td>
+                    <td><%= applicant.firstName%></td>
+                    <td><%= applicant.email%></td>
+                    <td><%= applicant.phoneNumber%></td>
+                    <td><form action="<%= applicant.resumeLink%>" method="get"><button class="btn btn-primary resumeBtn">Resume</button></form></td>
+                </tr>
+            <%})%>
+        <%}else{%>
+            <%if(errors){%>
+                <div class="alert alert-danger" role="alert">
+                    <%=errors%>
+                  </div>
+              <%}%>
+        <%}%>
+    </table>
+
+</div>

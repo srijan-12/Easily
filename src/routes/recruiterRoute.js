@@ -13,8 +13,8 @@ const clearCookie = require("../middlewares/clearCookie.js");
 const uploadFiles = require("../../cloudConfig.js");
 
 recruiterRouter.get("/user/recruiter", (req,res)=>{
-    // res.send("recruiter login form!!!");
-    res.render("layouts");
+    // res.send("recruiter register form!!!");
+    res.render("layouts",{body : "recruiterRegister",  errors: null});
 })
 
 
@@ -41,10 +41,10 @@ recruiterRouter.post("/user/submitRegistrationForm/recruiter",uploadFiles.fields
         };
         const newUser = new UserModel(userData);
         await newUser.save();
-        res.status(200).send("recruiter validation");
+        res.render("layouts", {body : "recruiterLoginForm", errors : null});
     }catch(err){
         console.log(err.message);
-        res.status(401).send(err.message);
+        res.render("layouts", {body : "recruiterRegister", errors : err.message});
     }
 })
 
@@ -74,7 +74,8 @@ recruiterRouter.post("/user/login/recruiter", async (req,res)=>{
             req.session.userId = foundUser._id;
             res.cookie("recruiterId", foundUser._id);
             // return res.send("loggedin" + foundUser);        //see all your job posters or post new job here
-            return res.send("loggedin");
+            res.locals.User = "recruiter";
+            res.render("layouts", {body : "homepage"})
         }else{
             console.log("error in password");
             throw new Error("Invalid Credentialsp");
@@ -84,7 +85,7 @@ recruiterRouter.post("/user/login/recruiter", async (req,res)=>{
         throw new Error("Invalid Credentials");
     }
     }catch(err){
-        res.send(err.message);
+        res.render("layouts", {body : "recruiterLoginForm", errors : err.message});
     }
 });
 
@@ -97,7 +98,8 @@ recruiterRouter.get("/user/logout/recruiter", (req,res)=>{
                 res.cookie("recruiterId", null);
                 res.clearCookie('connect.sid');
                 res.clearCookie('recruiterId');
-                res.status(200).send("logged out");
+                res.locals.User = null;
+                res.render("layouts", {body : "homepage", User:null})
             }
         })
     }catch(err){
@@ -107,49 +109,30 @@ recruiterRouter.get("/user/logout/recruiter", (req,res)=>{
 
 //get all applicants of a specific post
 recruiterRouter.get("/user/allapplicants/recruiter/:id", auth,recruiterCheck,ownerCheck,async (req,res)=>{
-    // try{
-    //     const{id} = req.params;
-    //     // console.log("***************")
-    //     // console.log(id);
-    //     // console.log("***************")
-    //     const foundPost = await JobModel.findById(id);
-    //     console.log(foundPost);
-    //     if(foundPost){
-    //         const {recruiterId} = req.cookies;
-    //         if(!recruiterId){
-    //             throw new Error("Please login again");
-    //         }else{
-    //             console.log(foundPost.postCreatedBy ,"==", recruiterId)
-    //             if(foundPost.postCreatedBy == recruiterId){
-    //                 const allApplicant = foundPost.applicants;
-    //                 if(allApplicant.length > 0){
-    //                     res.send(allApplicant)
-    //                 }else{
-    //                     throw new Error("No applicants to show")
-    //                 } 
-    //             }else{
-    //                 throw new Error("Only post owner can view applicants")
-    //             }
-    //         }
-    //     }else{
-    //         throw new Error("Invalid request Job post not found!!");
-    //     }
-    // }catch(err){
-    //     res.status(401).send(err.message);
-    // }
-
-
     try{
         const{id} = req.params;
         const foundPost = await JobModel.findById(id);
-        const allApplicant = foundPost.applicants;
-        if(allApplicant.length > 0){
-            res.send(allApplicant)
-        }else{
+        const allApplicants = foundPost.applicants;
+        if (allApplicants.length > 0) {
+            // Use Promise.all to fetch all applicant profiles asynchronously
+            const applicantsData = await Promise.all(allApplicants.map(async (applicant) => {
+                const thatApplicant = await UserModel.findById(applicant); // await the async operation
+
+                // Return the applicant's relevant fields
+                return {
+                    firstName: thatApplicant.firstName,
+                    email: thatApplicant.email,
+                    phoneNumber: thatApplicant.phoneNumber,
+                    resumeLink: thatApplicant.resumeLink
+                };
+            }));
+
+            res.render("layouts", { body: "applicantLists", applicants: applicantsData, errors: null });
+        } else{
             throw new Error("No applicants to show")
         } 
     }catch(err){
-        res.status(401).send(err.message);
+        res.render("layouts", {body : "applicantLists",applicants : null, errors: err.message});
     }
 })
 

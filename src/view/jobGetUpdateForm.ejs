@@ -1,18 +1,19 @@
-<%if(errors){%>
+  <%if(errors){%>
     <div class="alert alert-danger" role="alert">
         <%=errors%>
       </div>
   <%}%>
-<div class="container mt-5">
-    <h2 class="text-center mb-4">Job Posting Form</h2>
-    <form action="/job/postJoBRegistrationForm" method="post">
+  <%if(oldJobData){%>
+    <div class="container mt-5">
+    <h2 class="text-center mb-4">Job Update Form</h2>
+    <form action="/jobs/edit/recruiter/<%= oldJobData._id %>?_method=PATCH" method="POST">
       <div class="mb-3">
         <label for="title" class="form-label">Job Title</label>
-        <input type="text" class="form-control" id="title" name="title" placeholder="Enter job title" required>
+        <input type="text" class="form-control" id="title" name="title" placeholder="Enter job title" required value="<%=oldJobData.title%>">
       </div>
       <div class="mb-3">
         <label for="description" class="form-label">Job Description</label>
-        <textarea class="form-control" id="description" name="description" rows="3" placeholder="Enter job description" required></textarea>
+        <textarea class="form-control" id="description" name="description" rows="3" placeholder="Enter job description" required><%=oldJobData.description%></textarea>
       </div>
       <div class="mb-3">
         <label for="category" class="form-label">Job Category</label>
@@ -25,31 +26,31 @@
       
       <div class="mb-3">
         <label for="designation" class="form-label">Designation</label>
-        <input type="text" class="form-control" id="designation" name="designation" placeholder="Enter designation" required>
+        <input type="text" class="form-control" id="designation" name="designation" placeholder="Enter designation" required value="<%=oldJobData.designation%>">
       </div>
       <div class="mb-3">
         <label for="location" class="form-label">Location</label>
-        <input type="text" class="form-control" id="location" name="location" placeholder="Enter job location" required>
+        <input type="text" class="form-control" id="location" name="location" placeholder="Enter job location" required value="<%=oldJobData.location%>">
       </div>
       <div class="mb-3">
         <label for="company" class="form-label">Company Name</label>
-        <input type="text" class="form-control" id="company" name="company" placeholder="Enter company name" required>
+        <input type="text" class="form-control" id="company" name="company" placeholder="Enter company name" required value="<%=oldJobData.company%>">
       </div>
       <div class="mb-3">
         <label for="salary" class="form-label">Salary</label>
-        <input type="number" class="form-control" id="salary" name="salary" placeholder="Enter salary" required>
+        <input type="number" class="form-control" id="salary" name="salary" placeholder="Enter salary" required value="<%=oldJobData.salary%>">
       </div>
       <div class="mb-3">
         <label for="experienceReq" class="form-label">Experience Required</label>
-        <input type="text" class="form-control" id="experienceReq" name="exprienceReq" placeholder="Enter experience required" required>
+        <input type="text" class="form-control" id="experienceReq" name="exprienceReq" placeholder="Enter experience required" required value="<%=oldJobData.exprienceReq%>">
       </div>
       <div class="mb-3">
         <label for="openings" class="form-label">Number of Openings</label>
-        <input type="number" class="form-control" id="openings" name="opeanings" placeholder="Enter number of openings" required>
+        <input type="number" class="form-control" id="openings" name="opeanings" placeholder="Enter number of openings" required value="<%=oldJobData.opeanings%>">
       </div>
       <div class="mb-3">
         <label for="skillsRequired" class="form-label">Skills Required</label>
-        <input type="text" class="form-control" id="skillsRequired" name="skillsRequired" placeholder="Enter required skills" required>
+        <input type="text" class="form-control" id="skillsRequired" name="skillsRequired" placeholder="Enter required skills" required value="<%=oldJobData.skillsRequired%>">
       </div>
       <div class="mb-3">
         <label for="lastDateApply" class="form-label">Last Date to Apply</label>
@@ -58,3 +59,4 @@
       <button type="submit" class="btn btn-primary w-100">Submit Job Post</button>
     </form>
   </div>
+<%}%>
